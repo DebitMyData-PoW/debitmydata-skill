@@ -3,8 +3,19 @@
 *.key
 .env
 .env.*
-!.env.example
 wallet*.dat
+
+# Skill runtime state must live outside the checkout, even when ignored here
+.debitmydata/
+run-state*.json
+registration-result*.json
+challenge*.json
+
+# Python development environment
+.venv/
+.pytest_cache/
+.ruff_cache/
+.codebase-memory/
 
 # Local files
 __pycache__/
