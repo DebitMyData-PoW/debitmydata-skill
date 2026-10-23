@@ -1,0 +1,12 @@
+# Secrets: never commit
+*.pem
+*.key
+.env
+.env.*
+!.env.example
+wallet*.dat
+
+# Local files
+__pycache__/
+node_modules/
+.DS_Store
