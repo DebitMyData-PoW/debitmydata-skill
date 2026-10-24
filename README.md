@@ -4,6 +4,18 @@ An agent skill that lets AI agents use DebitMyData services, starting with DID r
 through the [DebitMyData Agent Gateway](https://github.com/DebitMyData-PoW/agent-gateway).
 It follows the open SKILL.md format: Codex first, and any other agent that supports skills.
 
+## Development status
+
+Milestone 1 is a **foundation for review**, not a working registration client.
+`SKILL.md` can explain the intended workflow, but executable helpers and end-to-end
+validation are deferred to milestones 2 and 3. Do not use this scaffold to register a DID.
+
+- [Skill entrypoint](SKILL.md)
+- [Registration contract and recovery rules](references/registration.md)
+- [Implementation design and source baseline](docs/foundation.md)
+- [Acceptance tests and staging test proposal](docs/test-plan.md)
+- [Foundation validation record](docs/foundation-validation.md)
+
 ## Version 1: DID registration on staging
 
 Staging only until real payments are enabled. Staging runs on a private DMD test chain whose

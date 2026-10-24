@@ -1,0 +1,4 @@
+interface:
+  display_name: "DebitMyData DID (Foundation)"
+  short_description: "Explain staging DID setup; execution not yet available"
+  default_prompt: "Use $debitmydata-skill to explain the staging DID registration workflow and its current implementation status."
