@@ -4,6 +4,10 @@ Status: ready for maintainer review after the checks recorded in
 [foundation-validation.md](foundation-validation.md). Runtime helpers are not implemented.
 This document makes implementation decisions; the live integration is not yet validated.
 
+Historical M1 design: implementation progress and deliberate changes to the proposed
+CLI/state layout are recorded in [the M2 report](m2-validation.md). The M1 baseline below
+is preserved; use that report for the newer API version and execution status.
+
 ## Scope and milestone gates
 
 | Milestone | Deliverable | Gate |

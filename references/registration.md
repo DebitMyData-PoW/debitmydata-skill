@@ -1,7 +1,9 @@
 # Registration contract and recovery
 
-Status: M1 specification for review, not a runnable implementation. Source versions
-and observed-versus-proposed distinctions are in [foundation.md](../docs/foundation.md).
+Status: contract implemented by the M2 helpers and tested offline; live registration
+validation is pending. Source versions and implementation changes are recorded in
+[the M2 report](../docs/m2-validation.md); the original baseline is in
+[foundation.md](../docs/foundation.md).
 
 ## Fixed v1 context
 
@@ -40,6 +42,9 @@ before using them in a path; do not accept a server-supplied arbitrary URL as a 
 Quote body: `display_name`, `participant_type`, `controller_public_key`,
 `preferred_payment_option`. Display name is 1–100 characters and excludes ASCII control
 characters. Do not send wallet fields, metadata or extra attributes without a defined use.
+The helper strips leading/trailing whitespace before validating and saving the name,
+matching Gateway normalization. Discovery identifies the service as `did_registration`,
+but the quote's `service` field contains `DebitMyData Agentic DID Registration`.
 
 Save a random UUID as `Idempotency-Key` before sending the quote. Its documented pattern
 is `[A-Za-z0-9._:-]{16,128}`. Retry with the same key and exact body; a changed body gives
