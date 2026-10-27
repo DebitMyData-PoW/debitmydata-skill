@@ -13,6 +13,7 @@ review and M3 behavioral validation/handover remain pending. Further live tests 
 new agreed budget; the completed test is not permission for repeated registrations.
 
 - [Skill entrypoint](SKILL.md)
+- [Reviewer guide: implementation, setup and testing](docs/reviewer-guide.md)
 - [Registration contract and recovery rules](references/registration.md)
 - [Implementation design and source baseline](docs/foundation.md)
 - [Acceptance tests and staging test budget](docs/test-plan.md)
