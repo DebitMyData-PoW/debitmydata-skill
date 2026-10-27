@@ -1,0 +1,4 @@
+base58==2.1.1
+cryptography==46.0.3
+httpx==0.28.1
+rfc8785==0.1.4

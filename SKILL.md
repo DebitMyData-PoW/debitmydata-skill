@@ -1,16 +1,23 @@
 ---
 name: debitmydata-skill
-description: Explain and guide DebitMyData staging DID registration through its Agent Gateway, including controller-key proof, registration status and credential verification. Foundation only; registration helpers are not implemented yet. Use for DebitMyData DID setup and troubleshooting, not production payments or Dump A Meme.
+description: Operate DebitMyData staging DID registration with local controller keys, status recovery and credential verification. Use for DID setup and troubleshooting. Excludes production payments and Dump A Meme.
 ---
 
 # DebitMyData staging DID registration
 
 ## Current capability
 
-This is a foundation scaffold. Explain the documented flow and requirements, but do
-not execute registration, generate keys, submit quotes or test payments, or invent
-missing helper commands. Executable support and behavioral validation come in later
-milestones. Report this limitation when asked to perform a registration.
+The CLI has offline tests and one completed staging registration with verified DID and
+credential on Gateway v0.11.0. That registration required a local timestamp fix and
+resumed the same paid operation; see [the test report](docs/m2-validation.md).
+The approved smoke-test budget has been used. Additional live tests require a new
+agreed budget; loading this skill does not authorize registration or payment.
+M3 behavioral validation and handover remain pending. Do not claim production readiness.
+
+Read [runtime setup and commands](references/runtime.md) before executing a helper.
+Run the installed virtual environment's Python and the absolute helper path; do not
+assume the user's current directory is the skill directory. Helpers produce JSON and
+use exit code 2 for a pending, blocked or issued-but-unverified result.
 
 Read [the registration reference](references/registration.md) for endpoint details,
 key formats, verification and recovery. Read [the foundation design](docs/foundation.md)
@@ -28,10 +35,9 @@ when evaluating the skill.
 - No API key, payment wallet or real funds are required for staging v1.
 - Production, USDC/x402, Dump A Meme and a separately tested MCP path are outside v1.
 
-## Workflow after the implementation gate is satisfied
+## Workflow for an authorized staging operation
 
-These are requirements for the future implementation, not executable instructions
-for the current scaffold:
+Use the CLI for these operations; do not recreate signing or HTTP calls in the chat:
 
 1. Confirm the user's staging registration request and required display name. Discovery
    alone must not create a key, quote, payment or registration.
@@ -69,7 +75,6 @@ table in the reference; do not restart the entire registration on an error.
 
 ## User-facing result
 
-For this scaffold, return the requested explanation plus the unimplemented status.
-Once implemented, report the environment, operation/registration ID, last verified
+Report the environment, operation/registration ID, last observed
 stage, DID if issued, verification result and next action. Do not expose private key
 material or imply a staging identity/payment is production-ready.

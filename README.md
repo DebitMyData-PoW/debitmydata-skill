@@ -6,15 +6,19 @@ It follows the open SKILL.md format: Codex first, and any other agent that suppo
 
 ## Development status
 
-Milestone 1 is a **foundation for review**, not a working registration client.
-`SKILL.md` can explain the intended workflow, but executable helpers and end-to-end
-validation are deferred to milestones 2 and 3. Do not use this scaffold to register a DID.
+Milestone 2 implements a staging-only Python CLI with 89 passing offline tests and one
+completed, verified DMD regtest registration on Gateway v0.11.0. The approved run resumed
+after a timestamp precision fix, retaining the same key, quote and payment. Implementation
+review and M3 behavioral validation/handover remain pending. Further live tests require a
+new agreed budget; the completed test is not permission for repeated registrations.
 
 - [Skill entrypoint](SKILL.md)
 - [Registration contract and recovery rules](references/registration.md)
 - [Implementation design and source baseline](docs/foundation.md)
-- [Acceptance tests and staging test proposal](docs/test-plan.md)
+- [Acceptance tests and staging test budget](docs/test-plan.md)
 - [Foundation validation record](docs/foundation-validation.md)
+- [Runtime setup and commands](references/runtime.md)
+- [Milestone 2 validation and remaining gates](docs/m2-validation.md)
 
 ## Version 1: DID registration on staging
 
@@ -49,7 +53,9 @@ coins have no value.
 - `POST /v1/staging/test-payments` is the only staging shortcut. In production the agent pays
   from its own wallet.
 - Never commit keys, wallets or `.env` files.
-- Test coins are limited: no load tests or loops against staging.
+- Test coins are limited: no load tests or registration loops against staging. The single
+  maintainer-approved smoke test used three of its six allowed payment-status checks;
+  see the validation report. That approval does not authorize further registrations.
 
 ## Links
 
