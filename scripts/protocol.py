@@ -112,7 +112,11 @@ def sign_challenge(challenge, rid, key, *, now=None):
     require(len(lines) == 8 and lines[:5] == expected and lines[5].startswith('Nonce: ')
             and bool(lines[5][7:]) and lines[6].startswith('Issued: ')
             and lines[7].startswith('Expires: '), 'Unrecognized or mismatched challenge message.')
-    require(timestamp(lines[7][9:]) == expiry and timestamp(lines[6][8:]) <= now < expiry,
+    # Gateway signs whole seconds but its JSON timestamp retains microseconds.
+    # Use the earlier signed expiry as the signing deadline; never change the message.
+    signed_expiry = timestamp(lines[7][9:])
+    require(signed_expiry == expiry.replace(microsecond=0)
+            and timestamp(lines[6][8:]) <= now < signed_expiry,
             'Challenge message timestamps do not match.')
     return base64.urlsafe_b64encode(key.sign(message.encode('utf-8'))).decode().rstrip('=')
 

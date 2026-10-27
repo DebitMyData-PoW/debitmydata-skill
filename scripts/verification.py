@@ -126,9 +126,11 @@ def verify_registration(result, state, payment, subject_document, issuer_documen
     require(subject['entitlements'] == result['entitlements'] == ['dmd_did_holder'],
             'Registration entitlement mismatch.')
     issued = timestamp(result['issued_at'])
+    # Signed credential dates use whole seconds; the API retains microseconds.
+    signed_issued = issued.replace(microsecond=0)
     require(timestamp(controller['verifiedAt']) <= issued <= now
-            and timestamp(credential['validFrom']) == issued
-            and timestamp(credential['proof']['created']) == issued,
+            and timestamp(credential['validFrom']) == signed_issued
+            and timestamp(credential['proof']['created']) == signed_issued,
             'Credential validity timestamps mismatch.')
     if 'validUntil' in credential:
         require(now < timestamp(credential['validUntil']), 'Credential expired.')

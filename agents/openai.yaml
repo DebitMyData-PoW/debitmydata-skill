@@ -1,4 +1,4 @@
 interface:
   display_name: "DebitMyData Staging DID"
-  short_description: "Staging DID tools; live validation pending"
-  default_prompt: "Use $debitmydata-skill to check staging DID registration availability and explain any pending execution gates."
+  short_description: "Staging DID registration and verification"
+  default_prompt: "Use $debitmydata-skill to check staging DID registration availability and explain the authorization needed before registration."

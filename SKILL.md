@@ -1,17 +1,18 @@
 ---
 name: debitmydata-skill
-description: Operate DebitMyData staging DID registration with local controller keys, status recovery and credential verification. Use for DID setup and troubleshooting; live registration validation is pending. Excludes production payments and Dump A Meme.
+description: Operate DebitMyData staging DID registration with local controller keys, status recovery and credential verification. Use for DID setup and troubleshooting. Excludes production payments and Dump A Meme.
 ---
 
 # DebitMyData staging DID registration
 
 ## Current capability
 
-Milestone 2 implements the CLI and has offline tests. Live end-to-end registration is
-not yet validated. Discovery and requested local key generation are available. Before
-executing `register` or `resume`, resolve the pending maintainer smoke-test budget in
-[the test report](docs/m2-validation.md); do not infer approval from loading this skill.
-Report this limitation honestly. Do not claim production readiness.
+The CLI has offline tests and one completed staging registration with verified DID and
+credential on Gateway v0.11.0. That registration required a local timestamp fix and
+resumed the same paid operation; see [the test report](docs/m2-validation.md).
+The approved smoke-test budget has been used. Additional live tests require a new
+agreed budget; loading this skill does not authorize registration or payment.
+M3 behavioral validation and handover remain pending. Do not claim production readiness.
 
 Read [runtime setup and commands](references/runtime.md) before executing a helper.
 Run the installed virtual environment's Python and the absolute helper path; do not
@@ -34,7 +35,7 @@ when evaluating the skill.
 - No API key, payment wallet or real funds are required for staging v1.
 - Production, USDC/x402, Dump A Meme and a separately tested MCP path are outside v1.
 
-## Workflow after the staging test gate is satisfied
+## Workflow for an authorized staging operation
 
 Use the CLI for these operations; do not recreate signing or HTTP calls in the chat:
 

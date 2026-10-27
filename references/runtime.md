@@ -1,8 +1,8 @@
 # Staging helper setup and commands
 
-This is the M2 implementation under review. Live registration validation and the
-maintainer's smoke-test budget remain pending; see [the report](../docs/m2-validation.md).
-Do not execute the registration examples until that gate is resolved.
+This is the M2 implementation prepared for maintainer review. One approved registration
+completed with verified DID and credential; see [the report](../docs/m2-validation.md).
+The examples below are instructions, not authorization for another live test.
 
 ## Install locally
 
@@ -36,7 +36,7 @@ not mean a process is still running: the operating system owns the lock lifetime
 # Only when the user requests creation of a controller key.
 .venv/bin/python scripts/debitmydata.py new-key --key-file /absolute/private-run/controller.pem
 
-# After the staging test gate is resolved and the user requests registration.
+# Only for a requested registration with an agreed staging operation budget.
 .venv/bin/python scripts/debitmydata.py register --display-name "Example Agent" --key-file /absolute/private-run/controller.pem --state-file /absolute/private-run/registration.json
 
 .venv/bin/python scripts/debitmydata.py status --state-file /absolute/private-run/registration.json
@@ -59,10 +59,13 @@ argument is required. It contains the key's path and public key, never private k
 bytes or persisted controller signatures. Keep the controller key after completion.
 Losing it does not authorize generating another key for the same registration.
 
-The proposed settlement wait is six payment-status checks total per registration
+The helper's settlement wait is six payment-status checks total per registration
 invocation, with a 10-second delay before each check. Verification uses the settlement
 response already observed in that invocation; standalone `verify` fetches current
 payment status. Pending results require explicit resume; there is no self-scheduling.
+Track the approved operation's total across invocations: resume/verify does not grant a
+fresh budget. The 26 October smoke test used three checks across register and resume;
+its one-registration authorization is now consumed.
 
 ## Results and recovery
 

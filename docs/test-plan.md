@@ -53,12 +53,18 @@ independent signature/canonicalization vectors, not only a signer and verifier s
 the same implementation. Tests must assert requests, outcomes and invariant violations,
 not simply match documentation headings or implementation text.
 
-## Minimal staging proposal — pending maintainer agreement
+## Minimal staging test — approved and completed 26 October 2026
+
+Tyler's approval was supplied by the user. The single registration completed using
+three payment-status checks across the initial invocation and one resume; the measured
+intervals were 10.920 and 110.545 seconds. See [the validation report](m2-validation.md).
+This approval is consumed; obtain a new budget for further live registrations.
 
 - Budget: one successful end-to-end registration using a locally generated test controller
   key. No real wallet/funds, hosted key helper or hosted signature helper.
-- Wait proposal: first payment check after about 10 seconds, at least 10 seconds between
-  checks, at most six per invocation. Stop pending at the cap; no automatic rerun.
+- Approved wait: first payment check after about 10 seconds, at least 10 seconds between
+  checks, at most six across the approved operation, including any resume. Stop at the
+  total cap; the helper's per-invocation cap must not reset the authorized total.
 - All negative, timeout, wrong-key, expiry, duplicate and retry cases run offline. Do not
   consume test coins to exercise a test matrix or to obtain a cleaner demo recording.
 - Run only after local tests pass and the maintainer has agreed the budget/wait policy.

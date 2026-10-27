@@ -195,6 +195,22 @@ def test_full_registration_and_resume(operation):
     assert all(s == 10 for s in sleeps)
 
 
+@pytest.mark.parametrize('issued_at,outcome', [
+    ('2026-10-24T00:00:00.400395Z', 'verified'),
+    ('2026-10-23T23:59:59.999999Z', 'issued_unverified'),
+    ('2026-10-24T00:00:01Z', 'issued_unverified')])
+def test_credential_seconds_match_precise_issuance(operation, monkeypatch, issued_at, outcome):
+    flow, fake, _ = operation
+    original = fake.issued_result
+    def precise_result():
+        result = original()
+        result['issued_at'] = issued_at
+        return result
+    monkeypatch.setattr(fake, 'issued_result', precise_result)
+    flow.now = lambda: NOW.replace(second=2)
+    assert flow.run()['outcome'] == outcome
+
+
 @pytest.mark.parametrize('fault', ['test-payments', 'controller-proofs', 'registrations'])
 def test_lost_mutation_response_reconciled(operation, fault):
     flow, fake, _ = operation

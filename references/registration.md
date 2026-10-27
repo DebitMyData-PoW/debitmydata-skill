@@ -1,7 +1,7 @@
 # Registration contract and recovery
 
-Status: contract implemented by the M2 helpers and tested offline; live registration
-validation is pending. Source versions and implementation changes are recorded in
+Status: contract implemented by the M2 helpers, tested offline and verified in one
+approved staging registration. Source versions and implementation changes are recorded in
 [the M2 report](../docs/m2-validation.md); the original baseline is in
 [foundation.md](../docs/foundation.md).
 
@@ -71,6 +71,9 @@ calculate or round them using binary floating point.
   Expected audience is the fixed staging origin and purpose is `did_registration`.
   Validate without changing the bytes being signed; reject unfamiliar message layouts.
 - Emit unpadded base64url of the 64-byte signature.
+- The Gateway's signed challenge timestamps have whole-second precision, while JSON
+  `expires_at` retains microseconds. Require the signed expiry to equal the JSON expiry
+  truncated to seconds, and stop at the earlier signed deadline. Preserve message bytes.
 - The current `signature_encoding` response is the descriptive string
   `base64url (base64 and hex are also accepted)`, not the literal `base64url` alone.
   Support this documented response while emitting only unpadded base64url; stop on an
@@ -104,6 +107,8 @@ The implementation must:
    registration intent, payment intent/rail/network and settled claim to the saved run
    and authoritative API results. Check credential ID and returned `dmd_did_holder`
    entitlement. Validate applicable validity timestamps.
+   Signed `validFrom` and proof `created` must equal API `issued_at` truncated to seconds;
+   still require the full-precision API issuance time not to be in the future.
 6. Report issuance separately from verification if any resolution, signature or binding
    check fails. No automatic new payment or registration to repair verification.
 
@@ -135,11 +140,12 @@ The client must not blindly retry all POSTs or treat all HTTP 409/422 errors ali
 | Test wallet unavailable / service down | Stop with sanitized diagnostics for the maintainer; do not reset the chain or email automatically. |
 | Issued but verification fails | Report `issued_unverified`, preserve key/IDs/result, and diagnose without another registration. |
 
-Proposed waiting budget for maintainer review: one status check after about 10 seconds,
-then checks at least 10 seconds apart, at most six payment-status checks per invocation.
-Return pending at the cap and require an explicit resume. No self-rescheduling or batch
-runs. These limits are proposals, not permission to loop against staging. Until reviewed,
-perform no live registration tests. See [the test proposal](../docs/test-plan.md).
+Tyler approved one DMD regtest registration with at most six payment-status checks,
+at least 10 seconds apart. It completed on 26 October using three checks in total,
+including resume. That approval is consumed. Future live tests require a new agreed
+budget. The helper caps each invocation at six checks; the operator must also enforce
+the total authorized budget across resume/verify invocations. No self-rescheduling or
+batch runs. See [the test plan](../docs/test-plan.md).
 
 ## Output contract
 

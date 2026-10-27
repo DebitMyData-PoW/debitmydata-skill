@@ -40,16 +40,31 @@ def test_key_roundtrip_and_no_overwrite(private_dir, capsys):
     assert capsys.readouterr().out == ''
 
 
-def test_exact_challenge_signature(private_dir):
+@pytest.mark.parametrize('expiry', ['2026-10-24T00:05:00Z', '2026-10-24T00:05:00.400395Z'])
+def test_exact_challenge_signature(private_dir, expiry):
     path = private_dir / 'key.pem'
     new_key(path)
     key = load_key(path)
     value = challenge(key)
+    value['expires_at'] = expiry
     signature = sign_challenge(value, RID, key, now=NOW)
     assert '=' not in signature
     raw = base64.urlsafe_b64decode(signature + '==')
     assert len(raw) == 64
     key.public_key().verify(raw, value['message'].encode())
+
+
+@pytest.mark.parametrize('expiry,now', [
+    ('2026-10-24T00:05:01.400395Z', NOW),
+    ('2026-10-24T00:05:00.400395Z', NOW.replace(minute=5, microsecond=100000))])
+def test_challenge_precision_does_not_extend_signed_expiry(private_dir, expiry, now):
+    path = private_dir / 'key.pem'
+    new_key(path)
+    key = load_key(path)
+    value = challenge(key)
+    value['expires_at'] = expiry
+    with pytest.raises(SkillError):
+        sign_challenge(value, RID, key, now=now)
 
 
 @pytest.mark.parametrize('field,value', [
