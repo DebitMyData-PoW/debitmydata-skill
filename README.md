@@ -1,4 +1,4 @@
-# DebitMyData skill
+# DebitMyData skill — `$dmd`
 
 An agent skill that lets AI agents use DebitMyData services, starting with DID registration
 through the [DebitMyData Agent Gateway](https://github.com/DebitMyData-PoW/agent-gateway).
@@ -30,12 +30,14 @@ new agreed budget; the completed test is not permission for repeated registratio
 Follow [the project-local installation instructions](references/runtime.md#install-locally),
 then start a new Codex session in that project. Begin with a discovery-only request:
 
-> Use $debitmydata-skill to check staging DID registration availability. Do not create a
+> Use $dmd to check staging DID registration availability. Do not create a
 > key, quote, payment or registration.
 
 Registration needs a display name, a private directory outside Git and a newly agreed
 staging operation budget. Keep the generated controller key and operation state for
-recovery. No payment wallet, API key or real funds are needed for staging v1.
+recovery. No payment wallet, API key or real funds are needed for staging v1. See the
+[DID action prompts](references/runtime.md#did-action-prompts) for registration, status,
+resume and verification requests.
 
 ## Version 1: DID registration on staging
 

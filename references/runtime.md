@@ -14,18 +14,22 @@ you want to use the skill. The destination must not already exist:
 
 ```sh
 mkdir -p .agents/skills
-git clone https://github.com/DebitMyData-PoW/debitmydata-skill.git .agents/skills/debitmydata-skill
-cd .agents/skills/debitmydata-skill
+git clone https://github.com/DebitMyData-PoW/debitmydata-skill.git .agents/skills/dmd
+cd .agents/skills/dmd
 python3 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 .venv/bin/python scripts/debitmydata.py --help
 ```
 
 Start a new Codex session in the enclosing project after installation. Confirm that
-`debitmydata-skill` appears in its available skills, then try:
+`dmd` appears in its available skills, then try:
 
-> Use $debitmydata-skill to check staging DID registration availability. Discovery only;
+> Use $dmd to check staging DID registration availability. Discovery only;
 > do not create a key, quote, payment or registration.
+
+After updating an existing installation, start a fresh Codex session and select `$dmd`.
+The repository URL remains `DebitMyData-PoW/debitmydata-skill`; `$dmd` is the skill's
+invocation name.
 
 Discovery makes read-only requests to staging. Skill discovery and fully offline
 behavior validation are recorded separately in [the M3 report](../docs/m3-validation.md).
@@ -51,6 +55,23 @@ the current user. The helper creates private files with mode 0600, refuses key/s
 overwrite and symlinks, and serializes writers with a sibling `.lock` file. Do not
 delete the lock file while another command might be running. Its presence alone does
 not mean a process is still running: the operating system owns the lock lifetime.
+
+## DID action prompts
+
+Use `$dmd` followed by the action and necessary details. These are requests to Codex;
+the executable helper commands are listed below.
+
+| Action | Example request |
+| --- | --- |
+| Discover | `$dmd discover staging DID registration availability. Discovery only.` |
+| Register | `$dmd register a staging DID named Example Agent using the agreed test budget and my private run directory.` |
+| Status | `$dmd status for the operation saved at /absolute/private-run/registration.json. Read only.` |
+| Resume | `$dmd resume the operation saved at /absolute/private-run/registration.json within its remaining approved budget.` |
+| Verify | `$dmd verify the issued DID and credential saved at /absolute/private-run/registration.json within its approved read budget.` |
+
+Registration requires an agreed staging budget; these examples do not provide one.
+Resume keeps the same controller key and operation. An unspecified action should be
+clarified before a mutation.
 
 ## Commands
 

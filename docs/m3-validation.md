@@ -19,6 +19,13 @@ assert merge approval or commercial milestone acceptance.
   isolation, not a new operating-system account or a test of every model configuration.
 - API baseline: Gateway v0.11.0 observed during M2. M3 has made no new Gateway calls.
 
+Naming follow-up, 29 October: the skill is now `$dmd`, installed under
+`.agents/skills/dmd`, with a matching Codex default prompt. A separate local
+`skills/list` check confirmed the renamed skill is enabled with no metadata errors.
+The six sessions below were run before this rename, using `$debitmydata-skill`.
+They were not rerun; runtime code is unchanged, and the rename check establishes
+discovery/metadata correctness rather than new agent-behavior evidence.
+
 The Python runtime files are unchanged from the successful M2 resume. The
 [26 October live evidence](m2-validation.md#live-evidence--26-october-2026) remains the
 integration evidence: one registration, three payment-status checks, a local timestamp
