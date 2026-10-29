@@ -12,7 +12,9 @@ credential on Gateway v0.11.0. That registration required a local timestamp fix 
 resumed the same paid operation; see [the test report](docs/m2-validation.md).
 The approved smoke-test budget has been used. Additional live tests require a new
 agreed budget; loading this skill does not authorize registration or payment.
-M3 behavioral validation and handover remain pending. Do not claim production readiness.
+Six fresh Codex behavior exercises and clean-install checks passed; see the
+[M3 acceptance report](docs/m3-validation.md). Publication and client handover remain
+separate approval steps. Do not claim production readiness.
 
 Read [runtime setup and commands](references/runtime.md) before executing a helper.
 Run the installed virtual environment's Python and the absolute helper path; do not

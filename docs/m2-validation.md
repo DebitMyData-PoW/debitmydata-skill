@@ -1,6 +1,12 @@
 # Milestone 2 implementation and validation
 
-Status: **M2 implementation and live acceptance checks passed; maintainer review is pending**.
+Status: **M2 implementation, live acceptance and technical review complete**.
+Implementation [PR #2](https://github.com/DebitMyData-PoW/debitmydata-skill/pull/2) and
+reviewer-guide [PR #3](https://github.com/DebitMyData-PoW/debitmydata-skill/pull/3)
+merged on 27 October 2026. In the message supplied by Sagar, Tyler reported reviewing
+the scripts, tests and reviewer guide, with all 89 offline tests passing on his side.
+That is maintainer feedback supplied in the conversation, not a formal GitHub review
+record or confirmation of Fiverr delivery acceptance.
 One DMD regtest registration completed with a verified DID and credential on 26 October.
 The first invocation stopped before signing because the client's timestamp comparison
 rejected fractional API timestamps. After an offline-tested fix, the same operation resumed
@@ -12,7 +18,9 @@ The base implementation is `0cc08849d292f97ea9ecbf33c1d6ee085d7f3346`; this revi
 adds timestamp fixes, regression tests and the completed validation evidence. On 27 October
 the user authorized committing/pushing these updates and reopening implementation
 [PR #2](https://github.com/DebitMyData-PoW/debitmydata-skill/pull/2), which had previously
-been closed at their request. Review acceptance and merging remain with the maintainer.
+been closed at their request. PR #2 subsequently merged as
+`3a996397253ba8510a520096db75d836b2fa9509`; PR #3 merged as
+`4184b57e17aa3384122bef57bf5812c659768110`.
 
 Tyler explicitly approved one complete DMD regtest registration and at most six payment-status
 checks, at least 10 seconds apart, in the message supplied by the user on 26 October.
@@ -148,12 +156,11 @@ Runtime file hashes for the successful resume (SHA-256), on top of base commit `
 | `scripts/local_store.py` | `82976dbe97550701cfe6ec9730fa23164d88c45a40a632dae191cc277c8ed675` |
 | `scripts/debitmydata.py` | `c9e30d7184cd720083f53025b1de2af8531fb39db3686b48e507caeee62174cf` |
 
-## Remaining acceptance gates
+## Delivery boundary
 
-1. Tyler's implementation review and any fixes within the agreed scope.
-2. Client acceptance of the M2 delivery; successful testing alone does not establish acceptance.
-
-M3 clean-session Codex behavioral exercises and final installation/handover review remain
-separate work. No production, wallet provisioning, DumpAMeme, MCP-client or general VC-engine
+Technical review is complete with no requested implementation changes in Tyler's supplied
+response. Fiverr submission and commercial acceptance remain separate from this evidence.
+[M3 clean-session Codex exercises and final installation/handover](m3-validation.md) are
+tracked separately. No production, wallet provisioning, DumpAMeme, MCP-client or general VC-engine
 support is claimed. A new uninterrupted live registration was deliberately not performed;
 that would require another agreed test budget.

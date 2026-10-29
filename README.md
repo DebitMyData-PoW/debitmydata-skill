@@ -9,7 +9,10 @@ It follows the open SKILL.md format: Codex first, and any other agent that suppo
 Milestone 2 implements a staging-only Python CLI with 89 passing offline tests and one
 completed, verified DMD regtest registration on Gateway v0.11.0. The approved run resumed
 after a timestamp precision fix, retaining the same key, quote and payment. Implementation
-review and M3 behavioral validation/handover remain pending. Further live tests require a
+and reviewer-guide PRs have merged; Tyler reported that all 89 offline tests also passed
+in his review. M3 clean installation and all six mocked Codex behavior exercises pass;
+publication and final delivery are tracked in [the M3 report](docs/m3-validation.md).
+Further live tests require a
 new agreed budget; the completed test is not permission for repeated registrations.
 
 - [Skill entrypoint](SKILL.md)
@@ -19,7 +22,20 @@ new agreed budget; the completed test is not permission for repeated registratio
 - [Acceptance tests and staging test budget](docs/test-plan.md)
 - [Foundation validation record](docs/foundation-validation.md)
 - [Runtime setup and commands](references/runtime.md)
-- [Milestone 2 validation and remaining gates](docs/m2-validation.md)
+- [Milestone 2 validation and technical review](docs/m2-validation.md)
+- [Milestone 3 installation, behavior and handover acceptance](docs/m3-validation.md)
+
+## Use in Codex
+
+Follow [the project-local installation instructions](references/runtime.md#install-locally),
+then start a new Codex session in that project. Begin with a discovery-only request:
+
+> Use $debitmydata-skill to check staging DID registration availability. Do not create a
+> key, quote, payment or registration.
+
+Registration needs a display name, a private directory outside Git and a newly agreed
+staging operation budget. Keep the generated controller key and operation state for
+recovery. No payment wallet, API key or real funds are needed for staging v1.
 
 ## Version 1: DID registration on staging
 

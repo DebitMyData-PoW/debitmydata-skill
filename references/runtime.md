@@ -1,14 +1,39 @@
 # Staging helper setup and commands
 
-This is the M2 implementation prepared for maintainer review. One approved registration
+The M2 implementation and reviewer guide have merged. One approved registration
 completed with verified DID and credential; see [the report](../docs/m2-validation.md).
 The examples below are instructions, not authorization for another live test.
 
 ## Install locally
 
 Requirements: Python 3.12 or later, POSIX filesystem permissions and `flock` (macOS/Linux).
-Validated so far on macOS with Python 3.14.7; Windows support is not claimed.
-From the skill directory:
+Validated on macOS with Python 3.14.7; Linux and Windows have not been tested.
+
+For a project-local Codex installation, run these commands from the project where
+you want to use the skill. The destination must not already exist:
+
+```sh
+mkdir -p .agents/skills
+git clone https://github.com/DebitMyData-PoW/debitmydata-skill.git .agents/skills/debitmydata-skill
+cd .agents/skills/debitmydata-skill
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python scripts/debitmydata.py --help
+```
+
+Start a new Codex session in the enclosing project after installation. Confirm that
+`debitmydata-skill` appears in its available skills, then try:
+
+> Use $debitmydata-skill to check staging DID registration availability. Discovery only;
+> do not create a key, quote, payment or registration.
+
+Discovery makes read-only requests to staging. Skill discovery and fully offline
+behavior validation are recorded separately in [the M3 report](../docs/m3-validation.md).
+Installing the skill does not authorize a registration. Keep private run files outside
+the enclosing project if it is a Git checkout, not just outside the skill subdirectory.
+
+If you already have a checkout and only need its Python dependencies, run from that
+skill directory:
 
 ```sh
 python3 -m venv .venv
