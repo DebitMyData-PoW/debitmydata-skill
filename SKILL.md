@@ -1,5 +1,5 @@
 ---
-name: debitmydata-skill
+name: dmd
 description: Operate DebitMyData staging DID registration with local controller keys, status recovery and credential verification. Use for DID setup and troubleshooting. Excludes production payments and Dump A Meme.
 ---
 

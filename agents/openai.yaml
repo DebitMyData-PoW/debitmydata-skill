@@ -1,4 +1,4 @@
 interface:
-  display_name: "DebitMyData Staging DID"
+  display_name: "DMD — DebitMyData Staging DID"
   short_description: "Staging DID registration and verification"
-  default_prompt: "Use $debitmydata-skill to check staging DID registration availability and explain the authorization needed before registration."
+  default_prompt: "Use $dmd to check staging DID registration availability and explain the authorization needed before registration."
