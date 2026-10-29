@@ -212,7 +212,8 @@ budget in a separate instruction. For example:
 > Report the sanitized outcome and preserve the key and state locally.
 
 This exercises the checkout's instructions and helper; formal clean-session skill
-installation, invocation and behavior testing remain part of M3.
+installation, invocation and behavior testing are tracked in the
+[M3 acceptance report](m3-validation.md).
 
 ## 8. What to send back in the review
 

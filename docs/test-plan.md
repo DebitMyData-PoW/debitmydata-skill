@@ -1,7 +1,9 @@
 # Acceptance test plan
 
-Status: planned M2/M3 tests, not executed results. Foundation-only checks are recorded
-separately in [foundation-validation.md](foundation-validation.md).
+This is the acceptance specification. Executed results are recorded in
+[M2 validation](m2-validation.md) and [M3 validation](m3-validation.md); the latter includes
+six fresh mocked Codex sessions. Foundation checks are recorded separately in
+[foundation-validation.md](foundation-validation.md).
 
 ## M1 acceptance
 
