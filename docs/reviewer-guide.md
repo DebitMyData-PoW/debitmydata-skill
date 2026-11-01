@@ -126,11 +126,11 @@ home directory; choose another location if your home directory itself is under G
 Run this setup once, remember the directory, and keep the same shell variable for recovery:
 
 ```sh
-DMD_REVIEW_RUN="$(mktemp -d "$HOME/dmd-review.XXXXXX")"
-chmod 700 "$DMD_REVIEW_RUN"
+DEBITMYDATA_REVIEW_RUN="$(mktemp -d "$HOME/debitmydata-review.XXXXXX")"
+chmod 700 "$DEBITMYDATA_REVIEW_RUN"
 
 .venv/bin/python scripts/debitmydata.py new-key \
-  --key-file "$DMD_REVIEW_RUN/controller.pem"
+  --key-file "$DEBITMYDATA_REVIEW_RUN/controller.pem"
 ```
 
 `new-key` creates a mode-0600 private key locally and prints only its public key. It refuses
@@ -139,8 +139,8 @@ to overwrite a key. The next command performs the entire registration and verifi
 ```sh
 .venv/bin/python scripts/debitmydata.py register \
   --display-name "Tyler-Skill-Review-01" \
-  --key-file "$DMD_REVIEW_RUN/controller.pem" \
-  --state-file "$DMD_REVIEW_RUN/registration.json"
+  --key-file "$DEBITMYDATA_REVIEW_RUN/controller.pem" \
+  --state-file "$DEBITMYDATA_REVIEW_RUN/registration.json"
 ```
 
 Allow the command to finish. It can spend approximately a minute on the bounded settlement
@@ -169,7 +169,7 @@ To inspect an existing operation without submitting another mutation:
 
 ```sh
 .venv/bin/python scripts/debitmydata.py status \
-  --state-file "$DMD_REVIEW_RUN/registration.json"
+  --state-file "$DEBITMYDATA_REVIEW_RUN/registration.json"
 ```
 
 `status` reads registration progress, not the payment-status endpoint. It reports payment
@@ -182,11 +182,11 @@ The following are alternative follow-up commands, not a sequence to run by defau
 ```sh
 # Only after reviewing the failure and authorizing the continuation budget:
 .venv/bin/python scripts/debitmydata.py resume \
-  --state-file "$DMD_REVIEW_RUN/registration.json"
+  --state-file "$DEBITMYDATA_REVIEW_RUN/registration.json"
 
 # Only for a saved issued result and an authorized additional payment-status read:
 .venv/bin/python scripts/debitmydata.py verify \
-  --state-file "$DMD_REVIEW_RUN/registration.json"
+  --state-file "$DEBITMYDATA_REVIEW_RUN/registration.json"
 ```
 
 `resume` can continue mutations on the same operation. `verify` makes only GET requests
