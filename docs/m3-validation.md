@@ -1,11 +1,8 @@
 # Milestone 3 validation and handover
 
-Validation completed on 28 October 2026: **engineering acceptance passed; maintainer
-review and final delivery remain separate**. Clean installation, Codex skill discovery, 89 offline helper tests and six
-fresh Codex behavior sessions pass. Sagar explicitly authorized those six mocked
-sessions; all six completed without a retry. Sagar authorized publication of this M3
-review change on 29 October. Fiverr submission has not occurred. This report does not
-assert merge approval or commercial milestone acceptance.
+Validation completed on 28 October 2026: **clean installation, Codex skill discovery,
+89 offline helper tests and six fresh mocked Codex behavior sessions passed**.
+All six sessions completed without a retry.
 
 ## Revision and environment
 
@@ -17,20 +14,29 @@ assert merge approval or commercial milestone acceptance.
   user configuration ignored, the CLI's default model selection (no model override),
   `workspace-write` sandbox and approval policy `never`. This was project/session
   isolation, not a new operating-system account or a test of every model configuration.
-- API baseline: Gateway v0.11.0 observed during M2. M3 has made no new Gateway calls.
+- Live registration baseline: Gateway v0.11.0 observed during M2. The six M3 behavior
+  sessions used mocks and made no live Gateway calls.
 
-Naming follow-up, 29 October: the skill is now `$dmd`, installed under
-`.agents/skills/dmd`, with a matching Codex default prompt. A separate local
-`skills/list` check confirmed the renamed skill is enabled with no metadata errors.
-The six sessions below were run before this rename, using `$debitmydata-skill`.
-They were not rerun; runtime code is unchanged, and the rename check establishes
-discovery/metadata correctness rather than new agent-behavior evidence.
+Maintainer-reported follow-up validation:
+
+- Ubuntu 24.04 with Python 3.12: installation, all 89 offline tests and staging discovery passed.
+- The skill's requests remain compatible with Gateway v0.14.0 on staging.
+
+These results supplement the macOS evidence. They do not establish a new end-to-end
+registration on Ubuntu or Gateway v0.14.0; the recorded live registration remains the
+v0.11.0 run below.
+
+The skill is named DebitMyData, with identifier `debitmydata` and display name
+DebitMyData Staging DID. New installations use `.agents/skills/debitmydata`.
+The six sessions below predate the naming updates and explicitly selected the
+skill under its previous identifier. They were not rerun; runtime code is unchanged.
+Metadata validation does not establish new agent-behavior evidence.
 
 The Python runtime files are unchanged from the successful M2 resume. The
 [26 October live evidence](m2-validation.md#live-evidence--26-october-2026) remains the
 integration evidence: one registration, three payment-status checks, a local timestamp
 repair and successful resume of the same paid operation. A new uninterrupted live run
-has not been performed or authorized.
+has not been performed.
 
 ## Acceptance matrix
 
@@ -41,10 +47,9 @@ has not been performed or authorized.
 | Codex discovery | App-server `skills/list` finds the project-local package with `scope: repo`, `enabled: true`, correct interface/default prompt and no skill errors | Passed |
 | Fresh agent behavior | Six distinct fresh sessions; inspected commands, mock request traces, CLI outcomes, final answers and retained state | All six passed |
 | Live workflow | Reused M2 registration and credential verification evidence; runtime unchanged | Passed within stated M2 limits |
-| Maintainer feedback | Tyler reported 89 passing tests and approved proceeding; implementation PR #2 and guide PR #3 merged | Complete for M2 |
+| Ubuntu compatibility | Maintainer reports installation, all 89 tests and staging discovery passing on Ubuntu 24.04 / Python 3.12 | Passed, maintainer-reported |
 | Format and links | Skill validator and local Markdown links checked after the final result updates; `git diff --check` passes | Passed |
 | Handover safety | Historical Git objects, proposed public files and session output inspected; no fixture private-key bytes in session output; installed package hashes unchanged by every session | Passed within the inspection scope below |
-| Final delivery | Review description and Fiverr delivery text prepared; M3 commit/push/PR authorized on 29 October | Maintainer review and Fiverr submission pending |
 
 History inspection covers 42 locally reachable Git blobs, 23 tracked paths and the new
 M3 report, using selected secret patterns and private-file extensions. Public changes
@@ -99,9 +104,9 @@ Every payment-status GET was preceded by a recorded ten-second sleep request: tw
 registration, one each for resume, expiry and wallet failure, none for discovery or
 production. These were mocked sleeps. No new live registration or payment was performed.
 
-Post-exercise changes only update result/status text and links. The skill's operational
-rules and all five runtime modules remain unchanged; the final package's format and
-links were checked again after those documentation edits.
+Post-exercise changes update documentation and skill naming metadata. The skill's
+operational rules and all five runtime modules remain unchanged; format and links
+were checked again after these edits. The six behavior sessions were not rerun.
 
 ## Installation and operation
 
@@ -120,9 +125,11 @@ attempt; model instructions are not the sole enforcement mechanism.
   provider response bodies; it does not assert that every 503 means an empty test wallet.
 - A missing local key stops recovery. Preserve the original controller key and state;
   there is no wallet provisioning, custody service or automatic key recovery.
-- Only the stated macOS/Python/Codex combination is tested. All six prompts explicitly
-  selected `$debitmydata-skill`. Linux, Windows, other agent hosts, implicit selection,
-  repeated statistical reliability and other model configurations are not claimed.
+- The six Codex behavior sessions cover the stated macOS/Python/Codex combination and
+  explicitly selected the skill under its previous identifier. Ubuntu coverage is limited
+  to the maintainer-reported installation, offline tests and staging discovery above. Windows,
+  other agent hosts, implicit selection, repeated statistical reliability and other
+  model configurations are not claimed.
 - The existing Gateway MCP endpoint is background information. V1 acceptance uses REST;
   no independent MCP client is delivered or tested.
 - Production payments, USDC/x402, wallet controllers, Dump A Meme, general VC suites,

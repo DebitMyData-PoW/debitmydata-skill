@@ -55,12 +55,12 @@ independent signature/canonicalization vectors, not only a signer and verifier s
 the same implementation. Tests must assert requests, outcomes and invariant violations,
 not simply match documentation headings or implementation text.
 
-## Minimal staging test — approved and completed 26 October 2026
+## Minimal staging test — completed 26 October 2026
 
-Tyler's approval was supplied by the user. The single registration completed using
-three payment-status checks across the initial invocation and one resume; the measured
+The single registration completed using three payment-status checks across the initial
+invocation and one resume; the measured
 intervals were 10.920 and 110.545 seconds. See [the validation report](m2-validation.md).
-This approval is consumed; obtain a new budget for further live registrations.
+This result covers one registration; obtain a new budget for further live registrations.
 
 - Budget: one successful end-to-end registration using a locally generated test controller
   key. No real wallet/funds, hosted key helper or hosted signature helper.
