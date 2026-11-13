@@ -79,7 +79,8 @@ coins have no value.
 ## Links
 
 - Staging API and docs: https://staging-api.debitmydata.io/docs
-- MCP endpoint (Streamable HTTP): https://staging-api.debitmydata.io/mcp
+- Staging MCP endpoint (Streamable HTTP): https://staging-api.debitmydata.io/agenticsuperhighway
+- Production MCP endpoint (reference only; outside this skill's staging-only scope): https://api.debitmydata.io/agenticsuperhighway
 - Gateway walkthrough: `docs/staging.md` and `scripts/demo_agent.py` in the
   [gateway repository](https://github.com/DebitMyData-PoW/agent-gateway)
 - Questions: tyler@debitmydata.com
