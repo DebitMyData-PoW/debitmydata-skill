@@ -7,7 +7,7 @@ import time
 import uuid
 
 from local_store import SkillError, read_private, save_state
-from protocol import (GatewayError, NETWORK, ORIGIN, PARTICIPANT, RAIL, SERVICE_TITLE,
+from protocol import (GatewayError, NETWORK, ORIGIN, PARTICIPANT, RAIL, SERVICE_TITLES,
                       UnknownOutcome, display_name, identifier, load_key, public_key,
                       registration_path, require, sign_challenge, timestamp, utcnow)
 from verification import verify_registration
@@ -117,7 +117,7 @@ class Workflow:
         identifier(quote['registration_intent_id'], 'did_intent')
         identifier(quote['payment_intent_id'], 'payment_intent')
         rail = quote['selected_payment_option']
-        require(quote['service'] == SERVICE_TITLE and rail['id'] == RAIL
+        require(quote['service'] in SERVICE_TITLES and rail['id'] == RAIL
                 and rail['network'] == NETWORK and rail['asset'] == 'DMD'
                 and quote['controller_proof_required'] is True,
                 'Quote is outside the staging registration contract.')

@@ -23,6 +23,8 @@ CID = 'dmd_credential_' + '2' * 26
 IID = 'dmd_identity_' + '3' * 26
 DID = ISSUER + ':agents:' + '3' * 26
 CHID = 'dmd_challenge_' + '4' * 26
+SERVICE = 'DebitMyData Agentic DID-LLM Registration'
+EARLIER_SERVICE = 'DebitMyData Agentic DID Registration'  # before Gateway 0.31.0
 
 
 def resign(credential, key):
@@ -53,7 +55,7 @@ class FakeGateway:
         self.issuer_key = Ed25519PrivateKey.generate()
         self.issuer_multikey = public_key(self.issuer_key).removeprefix('ed25519:')
         self.quote = {'registration_intent_id': RID, 'payment_intent_id': PID,
-            'service': 'DebitMyData Agentic DID Registration', 'commercial_price': {'currency': 'USD', 'amount': '25.00'},
+            'service': SERVICE, 'commercial_price': {'currency': 'USD', 'amount': '25.00'},
             'selected_payment_option': {'id': RAIL, 'network': NETWORK, 'asset': 'DMD',
                 'amount': '12.50000000', 'amount_base_units': '1250000000'},
             'controller_proof_required': True, 'expires_at': EXPIRY, 'terms_version': 'v1'}
@@ -68,7 +70,7 @@ class FakeGateway:
         subject = {'id': DID, 'displayName': self.state['display_name'], 'participantType': 'autonomous_agent',
             'controller': {'type': 'Multikey', 'publicKeyMultibase': self.state['controller_public_key'][8:],
                 'proofOfControl': 'ed25519_challenge_signature', 'verifiedAt': DATE},
-            'registration': {'service': 'DebitMyData Agentic DID Registration', 'registrationIntentId': RID,
+            'registration': {'service': self.quote['service'], 'registrationIntentId': RID,
                 'commercialPrice': self.quote['commercial_price'], 'termsVersion': 'v1',
                 'payment': {'paymentIntentId': PID, 'paymentOption': RAIL, 'asset': 'DMD',
                     'network': NETWORK, 'amount': '12.50000000', 'outputs': ['txid:0'], 'status': 'settled'}},
@@ -293,6 +295,21 @@ def test_closed_registration_never_pays(operation, status):
 def test_x402_quote_is_out_of_scope(operation):
     flow, fake, _ = operation
     fake.quote['selected_payment_option'].update(id='usdc_base_x402', network='eip155:84532', asset='USDC')
+    with pytest.raises(SkillError, match='outside the staging'):
+        flow.run()
+    assert post_count(fake, 'test-payments') == 0
+
+
+@pytest.mark.parametrize('service', [SERVICE, EARLIER_SERVICE])
+def test_current_and_earlier_service_names_verify(operation, service):
+    flow, fake, _ = operation
+    fake.quote['service'] = service
+    assert flow.run()['outcome'] == 'verified'
+
+
+def test_unknown_service_name_is_never_paid(operation):
+    flow, fake, _ = operation
+    fake.quote['service'] = 'DebitMyData Agentic Something Else'
     with pytest.raises(SkillError, match='outside the staging'):
         flow.run()
     assert post_count(fake, 'test-payments') == 0

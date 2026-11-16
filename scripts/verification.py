@@ -7,7 +7,7 @@ from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PublicKey
 
 from local_store import SkillError
-from protocol import ISSUER, NETWORK, ORIGIN, PARTICIPANT, RAIL, SERVICE_TITLE, decode_multikey, identifier
+from protocol import ISSUER, NETWORK, ORIGIN, PARTICIPANT, RAIL, SERVICE_TITLES, decode_multikey, identifier
 from protocol import require, timestamp, utcnow
 
 
@@ -107,7 +107,7 @@ def verify_registration(result, state, payment, subject_document, issuer_documen
     registration = subject['registration']
     quote = state['quote']
     require(registration['registrationIntentId'] == state['registration_intent_id']
-            and registration['service'] == SERVICE_TITLE
+            and registration['service'] in SERVICE_TITLES
             and registration['commercialPrice'] == quote['commercial_price']
             and registration['termsVersion'] == quote['terms_version'],
             'Credential registration claims mismatch.')

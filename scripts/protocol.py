@@ -18,7 +18,9 @@ ISSUER = 'did:web:staging-api.debitmydata.io'
 RAIL = 'dmd_pow_native'
 NETWORK = 'dmd:regtest'
 SERVICE = 'did_registration'
-SERVICE_TITLE = 'DebitMyData Agentic DID Registration'
+# The Gateway's name for the service: DID-LLM since Gateway 0.31.0. Credentials issued before
+# keep the earlier name, so both are accepted.
+SERVICE_TITLES = ('DebitMyData Agentic DID-LLM Registration', 'DebitMyData Agentic DID Registration')
 PARTICIPANT = 'autonomous_agent'
 ULID = r'[0-9A-HJKMNP-TV-Z]{26}'
 

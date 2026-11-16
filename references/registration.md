@@ -44,7 +44,9 @@ Quote body: `display_name`, `participant_type`, `controller_public_key`,
 characters. Do not send wallet fields, metadata or extra attributes without a defined use.
 The helper strips leading/trailing whitespace before validating and saving the name,
 matching Gateway normalization. Discovery identifies the service as `did_registration`,
-but the quote's `service` field contains `DebitMyData Agentic DID Registration`.
+but the quote's `service` field contains `DebitMyData Agentic DID-LLM Registration`
+(`DebitMyData Agentic DID Registration` before Gateway 0.31.0; credentials issued then keep
+that name, and the helpers accept both).
 
 Save a random UUID as `Idempotency-Key` before sending the quote. Its documented pattern
 is `[A-Za-z0-9._:-]{16,128}`. Retry with the same key and exact body; a changed body gives
