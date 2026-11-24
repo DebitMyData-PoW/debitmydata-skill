@@ -142,7 +142,7 @@ The client must not blindly retry all POSTs or treat all HTTP 409/422 errors ali
 | Test wallet unavailable / service down | Stop with sanitized diagnostics for the maintainer; do not reset the chain or email automatically. |
 | Issued but verification fails | Report `issued_unverified`, preserve key/IDs/result, and diagnose without another registration. |
 
-Tyler approved one DMD regtest registration with at most six payment-status checks,
+The maintainer approved one DMD regtest registration with at most six payment-status checks,
 at least 10 seconds apart. It completed on 26 October using three checks in total,
 including resume. That approval is consumed. Future live tests require a new agreed
 budget. The helper caps each invocation at six checks; the operator must also enforce

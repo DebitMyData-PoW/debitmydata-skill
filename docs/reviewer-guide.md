@@ -1,4 +1,4 @@
-# Tyler's implementation and testing guide
+# Implementation and testing guide
 
 This guide explains the M2 implementation and how to review it from a fresh checkout.
 Start with offline tests and read-only discovery. A new staging registration is a separate,
@@ -113,7 +113,7 @@ check the [Gateway docs](https://staging-api.debitmydata.io/docs).
 ## 5. Optional: authorize one new staging registration
 
 The previously approved registration is already complete; its budget is consumed.
-Tyler can authorize a separate reviewer test, specifying one registration and a total
+The maintainer can authorize a separate reviewer test, specifying one registration and a total
 payment-status budget. The commands below are instructions for that authorized test,
 not a request to run another registration automatically.
 
@@ -140,7 +140,7 @@ to overwrite a key. The next command performs the entire registration and verifi
 
 ```sh
 .venv/bin/python scripts/debitmydata.py register \
-  --display-name "Tyler-Skill-Review-01" \
+  --display-name "Skill-Review-01" \
   --key-file "$DEBITMYDATA_REVIEW_RUN/controller.pem" \
   --state-file "$DEBITMYDATA_REVIEW_RUN/registration.json"
 ```
@@ -207,7 +207,7 @@ Open the checkout in Codex and use this initial prompt:
 If you choose a new live test, provide its display name, private run directory and explicit
 budget in a separate instruction. For example:
 
-> I authorize one staging DMD regtest registration named Tyler-Skill-Review-01, using a
+> I authorize one staging DMD regtest registration named Skill-Review-01, using a
 > new local Ed25519 controller key outside Git. Use at most six payment-status checks,
 > at least 10 seconds apart. Run the registration command once. Stop on a non-success
 > outcome; do not resume, verify again or create another registration without my review.

@@ -9,8 +9,8 @@ It follows the open SKILL.md format: Codex first, and any other agent that suppo
 Milestone 2 implements a staging-only Python CLI with 89 passing offline tests and one
 completed, verified DMD regtest registration on Gateway v0.11.0. The approved run resumed
 after a timestamp precision fix, retaining the same key, quote and payment. Implementation
-and reviewer-guide PRs have merged; Tyler reported that all 89 offline tests also passed
-in his review. M3 clean installation and all six mocked Codex behavior exercises pass;
+and reviewer-guide PRs have merged; all 89 offline tests also passed in the maintainer's
+review. M3 clean installation and all six mocked Codex behavior exercises pass;
 publication and final delivery are tracked in [the M3 report](docs/m3-validation.md).
 Further live tests require a
 new agreed budget; the completed test is not permission for repeated registrations.
@@ -109,4 +109,4 @@ coins have no value.
 - Production MCP endpoint (reference only; outside this skill's staging-only scope): https://api.debitmydata.io/agenticsuperhighway
 - Gateway walkthrough: `docs/staging.md` and `scripts/demo_agent.py` in the
   [gateway repository](https://github.com/DebitMyData-PoW/agent-gateway)
-- Questions: tyler@debitmydata.com
+- Questions: info@debitmydata.com
