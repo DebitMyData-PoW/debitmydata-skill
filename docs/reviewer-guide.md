@@ -9,7 +9,7 @@ The validated implementation revision is `74204404492bca80c1c08e1bba1c50747a0b5d
 The API baseline observed on 26 October 2026 was **v0.11.0**. Later Gateway releases may
 require another contract comparison; this version is an observation, not a live guarantee.
 The comparison with Gateway 0.48.0 (15 November 2026) is in
-[the README](../README.md#gateway-compatibility).
+[the compatibility notes](gateway-compatibility.md).
 
 ## 1. What is implemented
 

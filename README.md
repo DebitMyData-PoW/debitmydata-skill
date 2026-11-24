@@ -1,71 +1,18 @@
 # DebitMyData skill
 
-An agent skill that lets AI agents use DebitMyData services, starting with DID registration
-through the [DebitMyData Agent Gateway](https://github.com/DebitMyData-PoW/agent-gateway).
-It follows the open SKILL.md format: Codex first, and any other agent that supports skills.
+An agent skill that lets AI agents use DebitMyData services by themselves, starting with
+registering their own DID-LLM, a verifiable identity, through the
+[DebitMyData Agent Gateway](https://github.com/DebitMyData-PoW/agent-gateway). It follows the open
+SKILL.md format: Codex first, and any other agent that supports skills.
 
-## Development status
+## What it does
 
-Milestone 2 implements a staging-only Python CLI with 89 passing offline tests and one
-completed, verified DMD regtest registration on Gateway v0.11.0. The approved run resumed
-after a timestamp precision fix, retaining the same key, quote and payment. Implementation
-and reviewer-guide PRs have merged; all 89 offline tests also passed in the maintainer's
-review. M3 clean installation and all six mocked Codex behavior exercises pass;
-publication and final delivery are tracked in [the M3 report](docs/m3-validation.md).
-Further live tests require a
-new agreed budget; the completed test is not permission for repeated registrations.
+The skill tells the agent when and how to act, and a small Python program (`scripts/`) does the
+work: the requests, the agent's own key, the signatures, and checking the DID-LLM and its
+credential at the end. The agent never hands its private key to anyone, and every step can be
+resumed safely after an interruption.
 
-- [Skill entrypoint](SKILL.md)
-- [Reviewer guide: implementation, setup and testing](docs/reviewer-guide.md)
-- [Registration contract and recovery rules](references/registration.md)
-- [Implementation design and source baseline](docs/foundation.md)
-- [Acceptance tests and staging test budget](docs/test-plan.md)
-- [Foundation validation record](docs/foundation-validation.md)
-- [Runtime setup and commands](references/runtime.md)
-- [Milestone 2 validation and technical review](docs/m2-validation.md)
-- [Milestone 3 installation, behavior and handover acceptance](docs/m3-validation.md)
-
-## Gateway compatibility
-
-Compared again with Gateway 0.52.3 on 16 November 2026 (staging and production both run it):
-
-- Since Gateway 0.31.0 the quote's and the credential's `service` is
-  `DebitMyData Agentic DID-LLM Registration` (a DID is now called a DID-LLM). The helpers
-  accept it and the earlier `DebitMyData Agentic DID Registration`, which credentials issued
-  before 0.31.0 keep. Without this, the CLI stopped right after the quote with "Quote is
-  outside the staging registration contract." and paid nothing.
-- Nothing else the CLI sends or checks has changed: discovery and payment options, quote,
-  test payment, payment status, controller challenge and proof, issuance result, DID
-  document and credential.
-- New on the Gateway since v0.11.0, outside this skill's v1: the MCP server with OAuth
-  sign-in (`debitmydata_whoami`, `debitmydata_verify_agent`), card, PayPal and x402
-  payments, the public DID-LLM directory, owner changes and revocation
-  (`debitmydata_change_owner`, `debitmydata_revoke_did`), add-ons, and the Gateway's own
-  Agent Skill, `debitmydata-did-llm`, listed at `/.well-known/agent-skills/index.json`.
-- Since Gateway 0.51.0 a person can pay with PayPal (payment option `paypal`), on PayPal's
-  own page like the card option. The CLI ignores the payment options it does not use: it
-  only checks that `dmd_pow_native` on `dmd:regtest` is listed and enabled, so the new
-  option changes nothing for it.
-- Since Gateway 0.50.0 every MCP tool's name starts with `debitmydata_`; the earlier `dmd_`
-  names still work when called but are no longer listed. This skill's CLI uses the REST API
-  only, so it is not affected. The `dmd_` prefixes of IDs (`dmd_identity_...`,
-  `dmd_did_intent_...`) and payment option IDs such as `dmd_pow_native` are unchanged.
-
-## Use in Codex
-
-Follow [the project-local installation instructions](references/runtime.md#install-locally),
-then start a new Codex session in that project. Begin with a discovery-only request:
-
-> Use the DebitMyData skill to check staging DID registration availability. Do not create a
-> key, quote, payment or registration.
-
-Registration needs a display name, a private directory outside Git and a newly agreed
-staging operation budget. Keep the generated controller key and operation state for
-recovery. No payment wallet, API key or real funds are needed for staging v1. See the
-[DID action prompts](references/runtime.md#did-action-prompts) for registration, status,
-resume and verification requests.
-
-## Version 1: DID registration on staging
+## Version 1: DID-LLM registration on staging
 
 Staging only until real payments are enabled. Staging runs on a private DMD test chain whose
 coins have no value.
@@ -101,6 +48,27 @@ coins have no value.
 - Test coins are limited: no load tests or registration loops against staging. The single
   maintainer-approved smoke test used three of its six allowed payment-status checks;
   see the validation report. That approval does not authorize further registrations.
+
+## Status
+
+Version 1 works end to end on the gateway's staging server: 89 offline tests pass, a registration
+on the private test chain was completed and verified, and installation and behavior in Codex were
+validated. Payments with real funds come in a later version. The reports:
+
+- [Skill entrypoint](SKILL.md)
+- [Reviewer guide: implementation, setup and testing](docs/reviewer-guide.md)
+- [Registration contract and recovery rules](references/registration.md)
+- [Implementation design and source baseline](docs/foundation.md)
+- [Acceptance tests and staging test budget](docs/test-plan.md)
+- [Foundation validation record](docs/foundation-validation.md)
+- [Runtime setup and commands](references/runtime.md)
+- [Milestone 2 validation and technical review](docs/m2-validation.md)
+- [Milestone 3 installation, behavior and handover acceptance](docs/m3-validation.md)
+- [Compatibility with newer gateway versions](docs/gateway-compatibility.md)
+
+## Installation
+
+To install the skill in a project, see **[INSTALL.md](INSTALL.md)**.
 
 ## Links
 
